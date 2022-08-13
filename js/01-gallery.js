@@ -31,3 +31,8 @@ function clickOnGalleryCards(event) {
   }
   console.log(event.target.dataset.data - source);
 }
+const instance = basicLightbox.create(`
+    <img src="assets/images/image.png" width="800" height="600">
+`);
+
+instance.show();
