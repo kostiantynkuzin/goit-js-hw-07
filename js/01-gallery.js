@@ -1,20 +1,27 @@
 import { galleryItems } from "./gallery-items.js";
 // Change code below this line
-const containerGallery = document.querySelector(".gallery");
-const cardsMarkup = createGalleryCards(galleryItems);
-containerGallery.insertAdjacentHTML("beforeend", cardsMarkup);
-
+//1<div class="gallery__item">
+//   <a class="gallery__link" href="large-image.jpg">
+//     <img
+//       class="gallery__image"
+//       src="small-image.jpg"
+//       data-source="large-image.jpg"
+//       alt="Image description"
+//     />
+//   </a>
+// </div>
 function createGalleryCards(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
-      <div class="gallery_item">
-        <a class= "gallery_link" href="${original}">
-            <img class= "gallery_image"
+      <div class="gallery__item">
+        <a class= "gallery__link" href="${original}">
+          <img 
+            class= "gallery__image"
             src="${preview} 
             data-source="${original}" 
             alt="${description}"
-            />
+          />
         </a>
     </div>
     `;
@@ -22,17 +29,26 @@ function createGalleryCards(galleryItems) {
     .join("");
 }
 // console.log(createGalleryCards(galleryItems));
+//2
+const containerGallery = document.querySelector(".gallery");
+
+const cardsMarkup = createGalleryCards(galleryItems);
+
+containerGallery.insertAdjacentHTML("beforeend", cardsMarkup);
+
 containerGallery.addEventListener("click", clickOnGalleryCards);
 
-function clickOnGalleryCards(event) {
-  //   event.preventDefault();
-  if (!event.target.classList.contains("gallery_image")) {
+function clickOnGalleryCards(e) {
+  // console.log(e.target);
+  if (!e.target.classList.contains("gallery__image")) {
     return;
   }
-  console.log(event.target.dataset.data - source);
-}
-const instance = basicLightbox.create(`
-    <img src="assets/images/image.png" width="800" height="600">
+  e.preventDefault();
+  console.log(e.target.dataset.source);
+  const selectedImage = evt.target.getAttribute("data-source");
+  const instance = basicLightbox.create(`
+    <img src="${selectedImage} " >
 `);
 
-instance.show();
+  instance.show();
+}
