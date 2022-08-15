@@ -10,15 +10,17 @@ import { galleryItems } from "./gallery-items.js";
 //     />
 //   </a>
 // </div>
+const cardsMarkup = createGalleryCards(galleryItems);
+
 function createGalleryCards(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
       <div class="gallery__item">
-        <a class= "gallery__link" href="${original}">
+        <a class="gallery__link" href="${original}">
           <img 
-            class= "gallery__image"
-            src="${preview} 
+            class="gallery__image"
+            src="${preview}" 
             data-source="${original}" 
             alt="${description}"
           />
@@ -28,11 +30,9 @@ function createGalleryCards(galleryItems) {
     })
     .join("");
 }
-// console.log(createGalleryCards(galleryItems));
+// console.log(cardsMarkup);
 //2
 const containerGallery = document.querySelector(".gallery");
-
-const cardsMarkup = createGalleryCards(galleryItems);
 
 containerGallery.insertAdjacentHTML("beforeend", cardsMarkup);
 
@@ -44,11 +44,17 @@ function clickOnGalleryCards(e) {
     return;
   }
   e.preventDefault();
+
   console.log(e.target.dataset.source);
-  const selectedImage = evt.target.getAttribute("data-source");
+
+  const selectedImage = e.target.getAttribute("data-source");
+
   const instance = basicLightbox.create(`
-    <img src="${selectedImage} " >
+    <img src="${selectedImage}" >
 `);
 
   instance.show();
+
+  const visible = basicLightbox.visible();
+  console.log(visible);
 }
