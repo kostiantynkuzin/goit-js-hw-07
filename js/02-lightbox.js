@@ -8,7 +8,8 @@ function createGalleryCards(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
       return `
-        <a class= "gallery__item" href="${original}">
+      <li class="gallary__item">
+        <a class= "gallery__link" href="${original}">
           <img 
             class= "gallery__image"
             src="${preview}" 
@@ -16,29 +17,31 @@ function createGalleryCards(galleryItems) {
             alt="${description}"
           />
         </a>
+      </li>
   `;
     })
     .join("");
 }
-// const containerGallery = document.querySelector(".gallery");
+const containerGallery = document.querySelector(".gallery");
 
 const cardsMarkup = createGalleryCards(galleryItems);
 
 containerGallery.insertAdjacentHTML("beforeend", cardsMarkup);
 
-// containerGallery.addEventListener("click", clickOnGalleryCards);
+// containerGallery.addEventListener(clickOnGalleryCards);
 
 // function clickOnGalleryCards(evt) {
 //   // console.log(evt.target);
-//   if (!evt.target.classList.contains("gallery__image")) {
-//     return;
-//   }
+//   // if (!evt.target.classList.contains("gallery__image")) {
+//   //   return;
+//   // }
 //   evt.preventDefault();
 
-const lightbox = new SimpleLightbox(".gallery ", {
+const lightbox = new SimpleLightbox(".gallery a", {
   captionsData: "alt",
   captionPosition: "bottom",
   captionDelay: 250,
 });
 lightbox.show();
 // }
+console.log(lightbox.show());
